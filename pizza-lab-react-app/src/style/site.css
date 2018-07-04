@@ -1,0 +1,36 @@
+a.nav-link {
+    display: inline-block;
+    color: rgb(255, 255, 255, 0.75);
+}
+
+a.nav-link:hover {
+    color: white;
+}
+
+a.nav-link.active {
+    color: white;
+}
+
+.space-top {
+    margin-top: 2em;
+}
+
+.navbar span {
+    color: #bbbbbb;
+}
+
+.card-blockquote>img {
+    width: 100%;
+}
+
+.card {
+    margin-bottom: 1em;
+}
+
+.selected {
+	background: #666666;
+}
+
+.bg-cover {
+    background-image: url('https://townepizzas.com/assets/images/s7.png');
+}
