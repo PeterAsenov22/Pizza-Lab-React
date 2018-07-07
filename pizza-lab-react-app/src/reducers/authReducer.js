@@ -1,6 +1,6 @@
 import {REGISTER_SUCCESS, LOGIN_SUCCESS, REGISTER_ERROR, LOGIN_ERROR, REDIRECTED} from '../actions/actionTypes'
 
-export function registerReducer (state = {success: false}, action) {
+function registerReducer (state = {success: false}, action) {
   switch (action.type) {
     case REGISTER_SUCCESS:
       return Object.assign({}, state, {success: true})
@@ -13,7 +13,7 @@ export function registerReducer (state = {success: false}, action) {
   }
 }
 
-export function loginReducer (state = {success: false}, action) {
+function loginReducer (state = {success: false}, action) {
   switch (action.type) {
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {success: true})
@@ -24,10 +24,10 @@ export function loginReducer (state = {success: false}, action) {
   }
 }
 
-export function registerErrorReducer (state = {hasError: false, message: ''}, action) {
+function registerErrorReducer (state = {hasError: false, message: ''}, action) {
   switch (action.type) {
     case REGISTER_ERROR:
-      return Object.assign({}, state, {hasError: true, message: action.message})
+      return Object.assign({}, state, {hasError: true, message: action.error})
     case REGISTER_SUCCESS:
       return Object.assign({}, state, {hasError: false, message: ''})
     default:
@@ -35,13 +35,20 @@ export function registerErrorReducer (state = {hasError: false, message: ''}, ac
   }
 }
 
-export function loginErrorReducer (state = {hasError: false, message: ''}, action) {
+function loginErrorReducer (state = {hasError: false, message: ''}, action) {
   switch (action.type) {
     case LOGIN_ERROR:
-      return Object.assign({}, state, {hasError: true, message: action.message})
+      return Object.assign({}, state, {hasError: true, message: action.error})
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {hasError: false, message: ''})
     default:
       return state
   }
+}
+
+export {
+  registerReducer,
+  loginReducer,
+  registerErrorReducer,
+  loginErrorReducer
 }

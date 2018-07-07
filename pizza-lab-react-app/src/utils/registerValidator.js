@@ -3,8 +3,8 @@ const emailRegex = new RegExp(
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 )
 
-export default function (username, email, password, confirmPassword) {
-  if (username.length < 4) {
+function registerValidator (username, email, password, confirmPassword) {
+  if (username.length < 4 || username === '') {
     toastr.error('Username must be at least 4 characters long')
     return false
   }
@@ -12,7 +12,7 @@ export default function (username, email, password, confirmPassword) {
     toastr.error('Please provide a correct email address')
     return false
   }
-  if (password.length < 8) {
+  if (password.length < 8 || password === '') {
     toastr.error('Password must be at least 8 characters long')
     return false
   }
@@ -23,3 +23,5 @@ export default function (username, email, password, confirmPassword) {
 
   return true
 }
+
+export default registerValidator

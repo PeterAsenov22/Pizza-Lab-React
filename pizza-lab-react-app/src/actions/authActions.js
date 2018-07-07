@@ -1,4 +1,5 @@
 import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, REDIRECTED } from './actionTypes'
+import {beginAjax, endAjax} from './ajaxStatusActions'
 import { login, register } from '../api/remote'
 import errorHandler from '../utils/errorHandler'
 
@@ -36,6 +37,7 @@ function redirectAction () {
 
 function registerAction (username, email, password) {
   return (dispatch) => {
+    dispatch(beginAjax())
     return register(username, email, password)
       .then(json => {
         if (json.success) {
@@ -44,12 +46,14 @@ function registerAction (username, email, password) {
           const error = errorHandler(json)
           dispatch(registerError(error))
         }
+        dispatch(endAjax())
       })
   }
 }
 
 function loginAction (email, password) {
   return (dispatch) => {
+    dispatch(beginAjax())
     return login(email, password)
       .then(json => {
         if (json.success) {
@@ -59,6 +63,7 @@ function loginAction (email, password) {
           const error = errorHandler(json)
           dispatch(loginError(error))
         }
+        dispatch(endAjax())
       })
   }
 }
@@ -71,7 +76,7 @@ function logoutAction () {
 
 function authenticateUser (json) {
   window.localStorage.setItem('authToken', json.token)
-  window.localStorage.setItem('username', json.user.name)
+  window.localStorage.setItem('username', json.user.username)
   if (json.user.roles) {
     window.localStorage.setItem('roles', json.user.roles)
   }

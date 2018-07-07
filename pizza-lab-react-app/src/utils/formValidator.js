@@ -80,7 +80,93 @@ const loginValidationFunc = (email, password) => {
   }
 }
 
+const createProductValidationFunc = (name, ingredients, doughTypes, description, image, weight, price) => {
+  let validName = (() => {
+    if (
+      name.length > 2 &&
+      name !== ''
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  let validIngredients = (() => {
+    if (
+      ingredients.length > 2 &&
+      ingredients.indexOf(' ') < 0 &&
+      ingredients !== ''
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  let validDoughTypes = (() => {
+    if (
+      doughTypes.length > 2 &&
+      doughTypes.indexOf(' ') < 0 &&
+      doughTypes !== ''
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  let validDescription = (() => {
+    if (
+      description.length > 10 &&
+      description.length <= 120 &&
+      description !== ''
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  let validImage = (() => {
+    if (
+      (image.startsWith('https://') || image.startsWith('http://')) && image.length >= 14
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  let validWeight = (() => {
+    if (
+      weight >= 250 &&
+      weight <= 800 &&
+      weight !== ''
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  let validPrice = (() => {
+    if (
+      price > 0 &&
+      price !== ''
+    ) {
+      return true
+    }
+    return false
+  })()
+
+  return {
+    validName,
+    validIngredients,
+    validDoughTypes,
+    validDescription,
+    validImage,
+    validWeight,
+    validPrice
+  }
+}
+
 export {
   registerValidationFunc,
-  loginValidationFunc
+  loginValidationFunc,
+  createProductValidationFunc
 }
