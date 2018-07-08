@@ -1,6 +1,6 @@
 import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR} from './actionTypes'
 import {beginAjax, endAjax} from './ajaxStatusActions'
-import {fetchPage, fetchSearchPage, createPizza} from '../api/remote'
+import {fetchProducts, createPizza} from '../api/remote'
 import errorHandler from '../utils/errorHandler'
 
 function fetchDataSuccess (data) {
@@ -24,19 +24,10 @@ function createError (error) {
   }
 }
 
-function fetchPageAction (page) {
+function fetchProductsAction () {
   return async (dispatch) => {
     dispatch(beginAjax())
-    const data = await fetchPage(page)
-    dispatch(fetchDataSuccess(data))
-    dispatch(endAjax())
-  }
-}
-
-function fetchSearchPageAction (search, page) {
-  return async (dispatch) => {
-    dispatch(beginAjax())
-    const data = await fetchSearchPage(page, search)
+    const data = await fetchProducts()
     dispatch(fetchDataSuccess(data))
     dispatch(endAjax())
   }
@@ -59,7 +50,6 @@ function createProductAction (data) {
 }
 
 export {
-  fetchPageAction,
-  fetchSearchPageAction,
+  fetchProductsAction,
   createProductAction
 }

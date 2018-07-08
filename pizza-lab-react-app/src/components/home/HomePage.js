@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import PizzaCard from '../common/Pizza/PizzaCard'
 import {Link} from 'react-router-dom'
-import { fetchPageAction } from '../../actions/productsActions'
+// import { fetchPageAction } from '../../actions/productsActions'
 import { connect } from 'react-redux'
 
 class HomePage extends Component {
   componentWillMount () {
-    const firstPage = 1
-    this.props.fetchPage(firstPage)
+    // this.props.fetchTopRated()
   }
 
   render () {
@@ -18,6 +17,7 @@ class HomePage extends Component {
       .map(p => (
         <PizzaCard
           key={p._id}
+          id={p._id}
           name={p.name}
           image={p.image}
           description={p.description}
@@ -60,7 +60,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchPage: (page) => dispatch(fetchPageAction(page))
+    // fetchTopRated: () => dispatch(fetchTopRatedAction())
   }
 }
 

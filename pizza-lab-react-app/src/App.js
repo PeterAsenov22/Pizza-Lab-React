@@ -7,14 +7,16 @@ import RegisterPage from './components/auth/RegisterPage'
 import LoginPage from './components/auth/LoginPage'
 import CreatePage from './components/create/CreatePage'
 import MenuPage from './components/menu/MenuPage'
+import DetailsPage from './components/details/DetailsPage'
 import NotFoundPage from './components/common/NotFoundPage'
 import Auth from './utils/auth'
-// import PrivateRoute from './components/common/Routes/PrivateRoute'
+import PrivateRoute from './components/common/Routes/PrivateRoute'
 import AdminRoute from './components/common/Routes/AdminRoute'
 import fetchStatsAction from './actions/statsActions'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutAction } from './actions/authActions'
+import { fetchProductsAction } from './actions/productsActions'
 
 class App extends Component {
   constructor (props) {
@@ -32,6 +34,7 @@ class App extends Component {
       this.setState({ loggedIn: true })
     }
     this.props.fetchStats()
+    this.props.fetchProducts()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -66,6 +69,7 @@ class App extends Component {
             <Route path='/register' component={RegisterPage} />
             <Route path='/login' component={LoginPage} />
             <AdminRoute path='/admin/create' component={CreatePage} />
+            <PrivateRoute path='/details/:id' component={DetailsPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </main>
@@ -85,7 +89,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     logout: () => dispatch(logoutAction()),
-    fetchStats: () => dispatch(fetchStatsAction())
+    fetchStats: () => dispatch(fetchStatsAction()),
+    fetchProducts: () => dispatch(fetchProductsAction())
   }
 }
 

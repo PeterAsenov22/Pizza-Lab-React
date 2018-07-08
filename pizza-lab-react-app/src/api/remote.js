@@ -37,24 +37,8 @@ async function fetchStats () {
   return res.json()
 }
 
-async function fetchPage (page) {
-  const res = await window.fetch(host + 'pizza/all?page=' + page)
-  return res.json()
-}
-
-async function fetchSearchPage (page, search) {
-  const res = await window.fetch(host + `pizza/all?page=${page}&search=${search}`)
-  return res.json()
-}
-
-async function fetchDetails (id) {
-  const res = await window.fetch(host + 'pizza/details/' + id, {
-    method: 'GET',
-    headers: {
-      'Authorization': 'bearer ' + Auth.getToken()
-    }
-  })
-
+async function fetchProducts () {
+  const res = await window.fetch(host + 'pizza/all')
   return res.json()
 }
 
@@ -74,9 +58,7 @@ async function createPizza (data) {
 export {
   register,
   login,
-  fetchPage,
-  fetchSearchPage,
-  fetchDetails,
+  fetchProducts,
   createPizza,
   fetchStats
 }

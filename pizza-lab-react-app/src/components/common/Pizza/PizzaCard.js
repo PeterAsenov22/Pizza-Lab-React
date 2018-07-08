@@ -1,6 +1,7 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
-const PizzaCard = ({name, image, description, weight}) => (
+const PizzaCard = ({id, name, image, description, weight}) => (
   <div className='card col-4'>
     <img className='card-img-top' src={image} alt={name} />
     <div className='card-body'>
@@ -9,7 +10,7 @@ const PizzaCard = ({name, image, description, weight}) => (
     </div>
     <div className='card-footer'>
       <small className='text-muted'>{weight} gr</small>
-      <button type='button' className='btn btn-primary float-right btn-sm'>Details</button>
+      <Link to={`details/${id}`} type='button' className='btn btn-primary float-right btn-sm'>Details</Link>
       <button type='button' className='btn btn-warning float-right btn-sm'>Order</button>
     </div>
   </div>

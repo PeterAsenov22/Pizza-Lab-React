@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PizzaCardList from '../common/Pizza/PizzaCardList'
 import Paginator from '../common/Paginator'
-import {fetchPageAction, fetchSearchPageAction} from '../../actions/productsActions'
-import {connect} from 'react-redux'
+import { fetchProductsAction } from '../../actions/productsActions'
+import { connect } from 'react-redux'
 
 class MenuPage extends Component {
   constructor (props) {
@@ -10,29 +10,20 @@ class MenuPage extends Component {
     this.state = {
       query: ''
     }
+
+    this.onChange = this.onChange.bind(this)
   }
 
   componentWillMount () {
-    this.props.fetchPage(Number(this.props.match.params.page) || 1)
-  }
-
-  componentWillUpdate (next) {
-    console.log(5)
+    this.props.fetchProducts()
   }
 
   onChange (e) {
-    this.setState({[e.target.name]: e.target.value})
-  }
-
-  onSubmit (e) {
-    e.preventDefault()
-    if (this.state.query !== '') {
-      this.props.fetchSearch(this.state.query, Number(this.props.match.params.page) || 1)
-    }
+    this.setState({ [e.target.name]: e.target.value })
   }
 
   render () {
-    let {products, stats} = this.props
+    let { products, stats } = this.props
     let productsCount = stats.productsCount
     const page = Number(this.props.match.params.page) || 1
     let query = this.state.query
@@ -48,19 +39,17 @@ class MenuPage extends Component {
       <div className='container'>
         <div className='row space-top'>
           <div className='col-md-12'>
-            <h1 className='jumbotron-heading'>Menu</h1>
-            <br />
-            <p>Search for the pizza you are looking for</p>
-            <form className='form-inline my-2 my-lg-0' method='POST' onSubmit={this.onSubmit}>
+            <h1 className='jumbotron-heading text-center'>Menu</h1>
+            <form class='form-inline md-form form-sm active-cyan active-cyan-2'>
+              <i class='fa fa-search' aria-hidden='true' />
               <input
+                class='form-control form-control-sm ml-3 w-75'
                 type='text'
+                placeholder='Search for the pizza you are looking for...'
+                aria-label='Search'
                 name='query'
                 onChange={this.onChange}
-                value={this.state.query}
-                className='form-control mr-sm-2'
-                placeholder='Search for pizza'
-              />
-              <input className='btn btn-secondary my-2 my-sm-0' type='submit' value='Search' />
+                value={this.state.query} />
             </form>
           </div>
         </div>
@@ -83,8 +72,7 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchPage: (page) => dispatch(fetchPageAction(page)),
-    fetchSearch: (query, page) => dispatch(fetchSearchPageAction(query, page))
+    fetchProducts: () => dispatch(fetchProductsAction())
   }
 }
 

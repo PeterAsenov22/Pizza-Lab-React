@@ -9,6 +9,7 @@ const PizzaCardList = (props) => {
       .map(p => (
         <PizzaCard
           key={p._id}
+          id={p._id}
           name={p.name}
           image={p.image}
           description={p.description}
