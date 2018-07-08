@@ -6,10 +6,12 @@ import HomePage from './components/home/HomePage'
 import RegisterPage from './components/auth/RegisterPage'
 import LoginPage from './components/auth/LoginPage'
 import CreatePage from './components/create/CreatePage'
+import MenuPage from './components/menu/MenuPage'
 import NotFoundPage from './components/common/NotFoundPage'
 import Auth from './utils/auth'
 // import PrivateRoute from './components/common/Routes/PrivateRoute'
 import AdminRoute from './components/common/Routes/AdminRoute'
+import fetchStatsAction from './actions/statsActions'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutAction } from './actions/authActions'
@@ -29,6 +31,7 @@ class App extends Component {
     if (Auth.isUserAuthenticated()) {
       this.setState({ loggedIn: true })
     }
+    this.props.fetchStats()
   }
 
   componentWillReceiveProps (nextProps) {
@@ -45,10 +48,12 @@ class App extends Component {
 
   render () {
     const isAdmin = Auth.isUserAdmin()
-
+    const {productsCount, usersCount} = this.props.stats
     return (
       <div className='App'>
         <Navbar
+          products={productsCount}
+          users={usersCount}
           loggedIn={this.state.loggedIn}
           isAdmin={isAdmin}
           logout={this.logout} />
@@ -56,6 +61,8 @@ class App extends Component {
         <main>
           <Switch>
             <Route exact path='/' component={HomePage} />
+            <Route exact path='/menu' component={MenuPage} />
+            <Route exact path='/menu/:page' component={MenuPage} />
             <Route path='/register' component={RegisterPage} />
             <Route path='/login' component={LoginPage} />
             <AdminRoute path='/admin/create' component={CreatePage} />
@@ -70,13 +77,15 @@ class App extends Component {
 
 function mapStateToProps (state) {
   return {
-    loginSuccess: state.login.success
+    loginSuccess: state.login.success,
+    stats: state.stats
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    logout: () => dispatch(logoutAction())
+    logout: () => dispatch(logoutAction()),
+    fetchStats: () => dispatch(fetchStatsAction())
   }
 }
 

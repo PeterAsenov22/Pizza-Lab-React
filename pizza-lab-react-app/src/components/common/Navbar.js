@@ -2,7 +2,7 @@ import React from 'react'
 import {Link, NavLink} from 'react-router-dom'
 
 const Navbar = (props) => {
-  const {loggedIn, isAdmin, logout} = props
+  const {loggedIn, isAdmin, logout, users, products} = props
 
   return (
     <header>
@@ -18,6 +18,8 @@ const Navbar = (props) => {
               {loggedIn && <a className='nav-link' href='javascript:void(0)' onClick={logout}>Logout</a>}
               {!loggedIn && <NavLink className='nav-link' to='/login'>Login</NavLink>}
               {!loggedIn && <NavLink className='nav-link' to='/register'>Register</NavLink>}
+              {isAdmin && <span style={{color: 'blue'}}>{products} products in catalog</span>}
+              {isAdmin && <span style={{color: 'blue'}}> | {users} users registered</span>}
             </div>
           </div>
         </div>

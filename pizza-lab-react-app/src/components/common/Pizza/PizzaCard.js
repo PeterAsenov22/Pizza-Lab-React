@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PizzaCard = ({name, image, description, weight}) => (
-  <div className='card'>
+  <div className='card col-4'>
     <img className='card-img-top' src={image} alt={name} />
     <div className='card-body'>
       <h5 className='card-title'>{name}</h5>

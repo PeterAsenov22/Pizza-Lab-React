@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import PizzaCard from '../common/Pizza/PizzaCard'
-import {fetchPageAction} from '../../actions/productsActions'
-import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import { fetchPageAction } from '../../actions/productsActions'
+import { connect } from 'react-redux'
 
 class HomePage extends Component {
   componentWillMount () {
@@ -25,13 +26,20 @@ class HomePage extends Component {
 
     return (
       <div className='container'>
+        <section className='jumbotron text-center'>
+          <div className='container'>
+            <h1 className='jumbotron-heading'>Welcome to Pizza Lab !</h1>
+            <p className='lead text-muted'>Your favourite pizza is now just a few clicks away. Choose from our decent menu or create your own one.</p>
+            <p>
+              <Link to='/menu' className='btn btn-primary'>Go To Menu</Link>
+              <Link to='/create-custom-pizza' className='btn btn-secondary'>Create your pizza</Link>
+            </p>
+          </div>
+        </section>
+        <h2 className='font-italic text-muted text-center'>Top Rated</h2>
         <div className='row space-top'>
-          <div className='col-md-12'>
-            <h1>Menu</h1>
-            <form className='form-inline my-2 my-lg-0'>
-              <input className='form-control mr-sm-2' placeholder='Search for your pizza' type='text' />
-              <button className='btn btn-outline-warning my-2 my-sm-0' type='submit'>Search</button>
-            </form>
+          <div className='card-deck'>
+            {pizzaCards}
           </div>
         </div>
         <div className='row space-top'>

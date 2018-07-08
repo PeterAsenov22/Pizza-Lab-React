@@ -32,6 +32,11 @@ async function login (email, password) {
   return res.json()
 }
 
+async function fetchStats () {
+  const res = await window.fetch(host + 'stats')
+  return res.json()
+}
+
 async function fetchPage (page) {
   const res = await window.fetch(host + 'pizza/all?page=' + page)
   return res.json()
@@ -72,5 +77,6 @@ export {
   fetchPage,
   fetchSearchPage,
   fetchDetails,
-  createPizza
+  createPizza,
+  fetchStats
 }
