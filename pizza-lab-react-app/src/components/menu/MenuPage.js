@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PizzaCardList from '../common/Pizza/PizzaCardList'
 import Paginator from '../common/Paginator'
-import { fetchProductsAction } from '../../actions/productsActions'
 import { connect } from 'react-redux'
 
 class MenuPage extends Component {
@@ -14,16 +13,13 @@ class MenuPage extends Component {
     this.onChange = this.onChange.bind(this)
   }
 
-  componentWillMount () {
-    this.props.fetchProducts()
-  }
-
   onChange (e) {
     this.setState({ [e.target.name]: e.target.value })
   }
 
   render () {
     let { products, stats } = this.props
+    products = products.sort((a, b) => a.name.localeCompare(b.name))
     let productsCount = stats.productsCount
     const page = Number(this.props.match.params.page) || 1
     let query = this.state.query
@@ -40,10 +36,10 @@ class MenuPage extends Component {
         <div className='row space-top'>
           <div className='col-md-12'>
             <h1 className='jumbotron-heading text-center'>Menu</h1>
-            <form class='form-inline md-form form-sm active-cyan active-cyan-2'>
-              <i class='fa fa-search' aria-hidden='true' />
+            <form className='form-inline md-form form-sm active-cyan active-cyan-2'>
+              <i className='fa fa-search' aria-hidden='true' />
               <input
-                class='form-control form-control-sm ml-3 w-75'
+                className='form-control form-control-sm ml-3 w-75'
                 type='text'
                 placeholder='Search for the pizza you are looking for...'
                 aria-label='Search'
@@ -70,10 +66,4 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    fetchProducts: () => dispatch(fetchProductsAction())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MenuPage)
+export default connect(mapStateToProps)(MenuPage)

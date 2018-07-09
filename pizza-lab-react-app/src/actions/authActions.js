@@ -77,7 +77,7 @@ function logoutAction () {
 function authenticateUser (json) {
   window.localStorage.setItem('authToken', json.token)
   window.localStorage.setItem('username', json.user.username)
-  if (json.user.roles) {
+  if (json.user.roles && json.user.roles.length > 0) {
     window.localStorage.setItem('roles', json.user.roles)
   }
 }

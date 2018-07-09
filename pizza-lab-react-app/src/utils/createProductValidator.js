@@ -2,7 +2,7 @@ import toastr from 'toastr'
 
 function createProductValidator (name, ingredients, doughTypes, description, image, weight, price) {
   if (name.length < 3 || name === '') {
-    toastr.error('Name must be at least 4 characters long')
+    toastr.error('Name must be at least 3 characters long')
     return false
   }
   if (ingredients.length < 3 || ingredients.indexOf(' ') > -1 || ingredients === '') {

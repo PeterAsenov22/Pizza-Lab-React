@@ -42,7 +42,7 @@ async function fetchProducts () {
   return res.json()
 }
 
-async function createPizza (data) {
+async function createProduct (data) {
   const res = await window.fetch(host + 'pizza/create', {
     method: 'POST',
     headers: {
@@ -55,10 +55,48 @@ async function createPizza (data) {
   return res.json()
 }
 
+async function createReview (id, data) {
+  const res = await window.fetch(host + `pizza/review/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + Auth.getToken()
+    },
+    body: JSON.stringify(data)
+  })
+
+  return res.json()
+}
+
+async function likeProduct (id) {
+  const res = await window.fetch(host + `pizza/like/${id}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'bearer ' + Auth.getToken()
+    }
+  })
+
+  return res.json()
+}
+
+async function unlikeProduct (id) {
+  const res = await window.fetch(host + `pizza/unlike/${id}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'bearer ' + Auth.getToken()
+    }
+  })
+
+  return res.json()
+}
+
 export {
   register,
   login,
   fetchProducts,
-  createPizza,
-  fetchStats
+  createProduct,
+  fetchStats,
+  createReview,
+  likeProduct,
+  unlikeProduct
 }

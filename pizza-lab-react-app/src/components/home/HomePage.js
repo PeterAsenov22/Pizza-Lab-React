@@ -1,28 +1,15 @@
 import React, { Component } from 'react'
-import PizzaCard from '../common/Pizza/PizzaCard'
+import PizzaCardList from '../common/Pizza/PizzaCardList'
 import {Link} from 'react-router-dom'
-// import { fetchPageAction } from '../../actions/productsActions'
 import { connect } from 'react-redux'
 
 class HomePage extends Component {
-  componentWillMount () {
-    // this.props.fetchTopRated()
-  }
-
   render () {
     const startIndex = 0
-    const pageSize = 3
+    const pageSize = 6
     const pizzaCards = this.props.products
+      .sort((a, b) => b.likes.length - a.likes.length)
       .slice(startIndex, pageSize)
-      .map(p => (
-        <PizzaCard
-          key={p._id}
-          id={p._id}
-          name={p.name}
-          image={p.image}
-          description={p.description}
-          weight={p.weight} />
-      ))
 
     return (
       <div className='container'>
@@ -37,16 +24,7 @@ class HomePage extends Component {
           </div>
         </section>
         <h2 className='font-italic text-muted text-center'>Top Rated</h2>
-        <div className='row space-top'>
-          <div className='card-deck'>
-            {pizzaCards}
-          </div>
-        </div>
-        <div className='row space-top'>
-          <div className='card-deck'>
-            {pizzaCards}
-          </div>
-        </div>
+        <PizzaCardList products={pizzaCards} />
       </div>
     )
   }
@@ -58,10 +36,4 @@ function mapStateToProps (state) {
   }
 }
 
-function mapDispatchToProps (dispatch) {
-  return {
-    // fetchTopRated: () => dispatch(fetchTopRatedAction())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default connect(mapStateToProps)(HomePage)

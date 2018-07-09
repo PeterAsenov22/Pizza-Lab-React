@@ -1,10 +1,17 @@
-import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR, REDIRECTED} from '../actions/actionTypes'
+import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR,
+  REDIRECTED, CREATE_REVIEW_SUCCESS, CREATE_REVIEW_ERROR, LIKE_PRODUCT, UNLIKE_PRODUCT} from '../actions/actionTypes'
 
 function productsReducer (state = [], action) {
   switch (action.type) {
     case FETCH_DATA_SUCCESS:
       return reconcile(state, action.data)
     case CREATE_PIZZA_SUCCESS:
+      return reconcile(state, [action.data])
+    case CREATE_REVIEW_SUCCESS:
+      return reconcile(state, [action.data])
+    case LIKE_PRODUCT:
+      return reconcile(state, [action.data])
+    case UNLIKE_PRODUCT:
       return reconcile(state, [action.data])
     default:
       return state
@@ -27,6 +34,17 @@ function createProductErrorReducer (state = {hasError: false, message: ''}, acti
     case CREATE_PIZZA_ERROR:
       return Object.assign({}, state, {hasError: true, message: action.error})
     case CREATE_PIZZA_SUCCESS:
+      return Object.assign({}, state, {hasError: false, message: ''})
+    default:
+      return state
+  }
+}
+
+function createReviewErrorReducer (state = {hasError: false, message: ''}, action) {
+  switch (action.type) {
+    case CREATE_REVIEW_ERROR:
+      return Object.assign({}, state, {hasError: true, message: action.error})
+    case CREATE_REVIEW_SUCCESS:
       return Object.assign({}, state, {hasError: false, message: ''})
     default:
       return state
@@ -59,5 +77,6 @@ function reconcile (oldData, newData) {
 export {
   productsReducer,
   createProductReducer,
-  createProductErrorReducer
+  createProductErrorReducer,
+  createReviewErrorReducer
 }

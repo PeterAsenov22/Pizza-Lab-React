@@ -10,7 +10,7 @@ const PizzaCard = ({id, name, image, description, weight}) => (
     </div>
     <div className='card-footer'>
       <small className='text-muted'>{weight} gr</small>
-      <Link to={`details/${id}`} type='button' className='btn btn-primary float-right btn-sm'>Details</Link>
+      <Link to={`/details/${id}`} type='button' className='btn btn-primary float-right btn-sm'>Details</Link>
       <button type='button' className='btn btn-warning float-right btn-sm'>Order</button>
     </div>
   </div>

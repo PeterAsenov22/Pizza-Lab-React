@@ -7,6 +7,10 @@ class Auth {
     return window.localStorage.getItem('authToken')
   }
 
+  static getUsername () {
+    return window.localStorage.getItem('username')
+  }
+
   static isUserAdmin () {
     let roles = window.localStorage.getItem('roles')
     if (!roles) {

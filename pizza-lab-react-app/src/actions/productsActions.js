@@ -1,6 +1,7 @@
-import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR} from './actionTypes'
+import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR,
+  CREATE_REVIEW_SUCCESS, CREATE_REVIEW_ERROR, LIKE_PRODUCT, UNLIKE_PRODUCT} from './actionTypes'
 import {beginAjax, endAjax} from './ajaxStatusActions'
-import {fetchProducts, createPizza} from '../api/remote'
+import {fetchProducts, createProduct, createReview, likeProduct, unlikeProduct} from '../api/remote'
 import errorHandler from '../utils/errorHandler'
 
 function fetchDataSuccess (data) {
@@ -24,6 +25,34 @@ function createError (error) {
   }
 }
 
+function createReviewSuccess (data) {
+  return {
+    type: CREATE_REVIEW_SUCCESS,
+    data
+  }
+}
+
+function createReviewError (error) {
+  return {
+    type: CREATE_REVIEW_ERROR,
+    error
+  }
+}
+
+function likeProductSuccess (data) {
+  return {
+    type: LIKE_PRODUCT,
+    data
+  }
+}
+
+function unlikeProductSuccess (data) {
+  return {
+    type: UNLIKE_PRODUCT,
+    data
+  }
+}
+
 function fetchProductsAction () {
   return async (dispatch) => {
     dispatch(beginAjax())
@@ -36,7 +65,7 @@ function fetchProductsAction () {
 function createProductAction (data) {
   return (dispatch) => {
     dispatch(beginAjax())
-    return createPizza(data)
+    return createProduct(data)
       .then(json => {
         if (json.success) {
           dispatch(createSuccess(json.data))
@@ -49,7 +78,46 @@ function createProductAction (data) {
   }
 }
 
+function createProductReviewAction (id, data) {
+  return (dispatch) => {
+    return createReview(id, data)
+      .then(json => {
+        if (json.success) {
+          dispatch(createReviewSuccess(json.data))
+        } else {
+          const error = errorHandler(json)
+          dispatch(createReviewError(error))
+        }
+      })
+  }
+}
+
+function likeProductAction (id) {
+  return (dispatch) => {
+    return likeProduct(id)
+      .then(json => {
+        if (json.success) {
+          dispatch(likeProductSuccess(json.data))
+        }
+      })
+  }
+}
+
+function unlikeProductAction (id) {
+  return (dispatch) => {
+    return unlikeProduct(id)
+      .then(json => {
+        if (json.success) {
+          dispatch(unlikeProductSuccess(json.data))
+        }
+      })
+  }
+}
+
 export {
   fetchProductsAction,
-  createProductAction
+  createProductAction,
+  createProductReviewAction,
+  likeProductAction,
+  unlikeProductAction
 }
