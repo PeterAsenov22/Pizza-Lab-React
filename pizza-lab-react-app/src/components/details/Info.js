@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 
 class Info extends Component {
   onLikeButtonClick () {
@@ -8,6 +8,12 @@ class Info extends Component {
     } else {
       this.props.likeProduct(this.props.product._id)
     }
+  }
+
+  onOrderButtonClick (e) {
+    e.preventDefault()
+    this.props.addToCart(this.props.product._id)
+    this.props.history.push('/cart')
   }
 
   render () {
@@ -34,11 +40,11 @@ class Info extends Component {
           <p><span className='light-blue-text'>Weight</span>: {product.weight}</p>
           <p><span className='light-blue-text'>Price</span>: {product.price}</p>
           <button className='btn btn-primary btn-sm' onClick={this.onLikeButtonClick.bind(this)}>{buttonText}</button>
-          <Link className='btn btn-warning btn-sm' to='/order'>Order</Link>
+          <button className='btn btn-warning btn-sm' onClick={this.onOrderButtonClick.bind(this)}>Order</button>
         </div>
       </div>
     )
   }
 }
 
-export default Info
+export default withRouter(Info)

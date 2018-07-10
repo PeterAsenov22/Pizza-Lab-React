@@ -3,6 +3,7 @@ import Info from './Info'
 import ReviewsContainer from './ReviewsContainer'
 import Auth from '../../utils/auth'
 import {likeProductAction, unlikeProductAction} from '../../actions/productsActions'
+import {addToCartAction} from '../../actions/cartActions'
 import {connect} from 'react-redux'
 
 class DetailsPage extends Component {
@@ -29,7 +30,8 @@ class DetailsPage extends Component {
           product={product}
           username={username}
           likeProduct={this.props.likeProduct}
-          unlikeProduct={this.props.unlikeProduct} />
+          unlikeProduct={this.props.unlikeProduct}
+          addToCart={this.props.addToCart} />
         <ReviewsContainer product={product} />
       </div>
     )
@@ -45,7 +47,8 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     likeProduct: (id) => dispatch(likeProductAction(id)),
-    unlikeProduct: (id) => dispatch(unlikeProductAction(id))
+    unlikeProduct: (id) => dispatch(unlikeProductAction(id)),
+    addToCart: (id) => dispatch(addToCartAction(id))
   }
 }
 
