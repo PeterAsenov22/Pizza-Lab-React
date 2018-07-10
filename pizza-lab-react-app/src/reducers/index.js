@@ -1,5 +1,6 @@
 import ajaxStatusReducer from './ajaxStatusReducer'
 import statsReducer from './statsReducer'
+import cartReducer from './cartReducer'
 import {productsReducer, createProductReducer, createProductErrorReducer, createReviewErrorReducer} from './productsReducer'
 import {registerReducer, loginReducer, registerErrorReducer, loginErrorReducer} from './authReducer'
 
@@ -13,5 +14,6 @@ export default {
   createProductError: createProductErrorReducer,
   ajaxCalls: ajaxStatusReducer,
   stats: statsReducer,
-  createReviewError: createReviewErrorReducer
+  createReviewError: createReviewErrorReducer,
+  cart: cartReducer
 }

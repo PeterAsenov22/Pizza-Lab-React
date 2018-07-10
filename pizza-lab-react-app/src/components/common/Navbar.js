@@ -15,6 +15,7 @@ const Navbar = (props) => {
               <NavLink className='nav-link' to='/menu'>Menu</NavLink>
               {loggedIn && <NavLink className='nav-link' to='/orders'>My Orders</NavLink>}
               {isAdmin && <NavLink className='nav-link' to='/admin/create'>Create New Pizza</NavLink>}
+              {loggedIn && <NavLink className='nav-link' to='/cart'>Cart</NavLink>}
               {loggedIn && <a className='nav-link' href='javascript:void(0)' onClick={logout}>Logout</a>}
               {!loggedIn && <NavLink className='nav-link' to='/login'>Login</NavLink>}
               {!loggedIn && <NavLink className='nav-link' to='/register'>Register</NavLink>}
