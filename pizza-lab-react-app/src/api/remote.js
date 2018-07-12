@@ -90,6 +90,28 @@ async function unlikeProduct (id) {
   return res.json()
 }
 
+async function submitOrder (data) {
+  const res = await window.fetch(host + 'orders/submit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + Auth.getToken()
+    },
+    body: JSON.stringify(data)
+  })
+
+  return res.json()
+}
+
+async function fetchUserOrders () {
+  const res = await window.fetch(host + 'orders/user', {
+    headers: {
+      'Authorization': 'bearer ' + Auth.getToken()
+    }
+  })
+  return res.json()
+}
+
 export {
   register,
   login,
@@ -98,5 +120,7 @@ export {
   fetchStats,
   createReview,
   likeProduct,
-  unlikeProduct
+  unlikeProduct,
+  submitOrder,
+  fetchUserOrders
 }

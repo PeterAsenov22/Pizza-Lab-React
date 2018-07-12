@@ -9,6 +9,8 @@ import CreatePage from './components/create/CreatePage'
 import MenuPage from './components/menu/MenuPage'
 import DetailsPage from './components/details/DetailsPage'
 import CartPage from './components/cart/CartPage'
+import OrdersPage from './components/orders/OrdersPage'
+import OrderDetailsPage from './components/orders/OrderDetailsPage'
 import NotFoundPage from './components/common/NotFoundPage'
 import Auth from './utils/auth'
 import NonAuthenticatedRoute from './components/common/Routes/NonAuthenticatedRoute'
@@ -73,6 +75,8 @@ class App extends Component {
             <AdminRoute path='/admin/create' component={CreatePage} />
             <PrivateRoute path='/details/:id' component={DetailsPage} />
             <PrivateRoute path='/cart' component={CartPage} />
+            <PrivateRoute path='/orders/details/:id' component={OrderDetailsPage} />
+            <PrivateRoute exact path='/orders' component={OrdersPage} />
             <Route component={NotFoundPage} />
           </Switch>
         </main>

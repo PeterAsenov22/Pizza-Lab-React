@@ -1,11 +1,27 @@
 import React, { Component } from 'react'
 import CartRow from './CartRow'
 import './CartPage.css'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import {syncCartAction, removeFromCartAction} from '../../actions/cartActions'
+import {submitOrderAction} from '../../actions/ordersActions'
 import {connect} from 'react-redux'
 
 class CartPage extends Component {
+  onCheckoutButtonClick () {
+    let products = []
+    for (let element of this.props.cart) {
+      let product = this.props.products.find(p => p._id === element.id)
+      products.push({
+        id: element.id,
+        name: product.name,
+        quantity: element.quantity,
+        price: product.price
+      })
+    }
+    this.props.submitOrder(products)
+    this.props.history.push('/orders')
+  }
+
   render () {
     let total = 0
     let cartIds = this.props.cart.map(c => c.id)
@@ -43,7 +59,7 @@ class CartPage extends Component {
               <td><Link to='/menu' className='btn btn-warning'><i className='fa fa-angle-left' /> Continue Shopping</Link></td>
               <td colspan='2' className='hidden-xs' />
               <td className='hidden-xs text-center'><strong>Total ${total.toFixed(2)}</strong></td>
-              <td><Link to='/orders/checkout' className='btn btn-success btn-block'>Checkout <i className='fa fa-angle-right' /></Link></td>
+              <td><button onClick={this.onCheckoutButtonClick.bind(this)} className='btn btn-success btn-block'>Checkout <i className='fa fa-angle-right' /></button></td>
             </tr>
           </tfoot>
         </table>
@@ -62,8 +78,9 @@ function mapStateToProps (state) {
 function mapDispatchToProps (dispatch) {
   return {
     syncCart: (id, quantity) => dispatch(syncCartAction(id, quantity)),
-    removeFromCart: (id) => dispatch(removeFromCartAction(id))
+    removeFromCart: (id) => dispatch(removeFromCartAction(id)),
+    submitOrder: (data) => dispatch(submitOrderAction(data))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CartPage))
