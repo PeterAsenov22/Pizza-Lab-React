@@ -15,7 +15,7 @@ const OrdersRow = (props) => {
       <td>$ {totalPrice.toFixed(2)}</td>
       <td><span className='label label-info'>{status}</span>
       </td>
-      <td><Link to={`/orders/details/${props.order._id}`} className='btn btn-outline-primary btn-sm'>View</Link>
+      <td><Link to={`/orders/details/${props.order._id}`} className='btn btn-outline-warning btn-sm'>View</Link>
       </td>
     </tr>
   )
