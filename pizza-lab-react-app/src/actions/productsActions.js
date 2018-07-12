@@ -1,7 +1,7 @@
-import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR,
+import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR, EDIT_PIZZA_SUCCESS, EDIT_PIZZA_ERROR,
   CREATE_REVIEW_SUCCESS, CREATE_REVIEW_ERROR, LIKE_PRODUCT, UNLIKE_PRODUCT} from './actionTypes'
 import {beginAjax, endAjax} from './ajaxStatusActions'
-import {fetchProducts, createProduct, createReview, likeProduct, unlikeProduct} from '../api/remote'
+import {fetchProducts, createProduct, editProduct, createReview, likeProduct, unlikeProduct} from '../api/remote'
 import errorHandler from '../utils/errorHandler'
 
 function fetchDataSuccess (data) {
@@ -21,6 +21,20 @@ function createSuccess (data) {
 function createError (error) {
   return {
     type: CREATE_PIZZA_ERROR,
+    error
+  }
+}
+
+function editSuccess (data) {
+  return {
+    type: EDIT_PIZZA_SUCCESS,
+    data
+  }
+}
+
+function editError (error) {
+  return {
+    type: EDIT_PIZZA_ERROR,
     error
   }
 }
@@ -78,6 +92,22 @@ function createProductAction (data) {
   }
 }
 
+function editProductAction (id, data) {
+  return (dispatch) => {
+    dispatch(beginAjax())
+    return editProduct(id, data)
+      .then(json => {
+        if (json.success) {
+          dispatch(editSuccess(json.data))
+        } else {
+          const error = errorHandler(json)
+          dispatch(editError(error))
+        }
+        dispatch(endAjax())
+      })
+  }
+}
+
 function createProductReviewAction (id, data) {
   return (dispatch) => {
     return createReview(id, data)
@@ -117,6 +147,7 @@ function unlikeProductAction (id) {
 export {
   fetchProductsAction,
   createProductAction,
+  editProductAction,
   createProductReviewAction,
   likeProductAction,
   unlikeProductAction

@@ -2,7 +2,7 @@ import ajaxStatusReducer from './ajaxStatusReducer'
 import statsReducer from './statsReducer'
 import cartReducer from './cartReducer'
 import ordersReducer from './ordersReducer'
-import {productsReducer, createProductReducer, createProductErrorReducer, createReviewErrorReducer} from './productsReducer'
+import {productsReducer, createProductReducer, createProductErrorReducer, editProductReducer, editProductErrorReducer, createReviewErrorReducer} from './productsReducer'
 import {registerReducer, loginReducer, registerErrorReducer, loginErrorReducer} from './authReducer'
 
 export default {
@@ -13,6 +13,8 @@ export default {
   loginError: loginErrorReducer,
   createProduct: createProductReducer,
   createProductError: createProductErrorReducer,
+  editProduct: editProductReducer,
+  editProductError: editProductErrorReducer,
   ajaxCalls: ajaxStatusReducer,
   stats: statsReducer,
   createReviewError: createReviewErrorReducer,

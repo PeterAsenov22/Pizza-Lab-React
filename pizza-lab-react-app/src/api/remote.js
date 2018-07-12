@@ -55,6 +55,19 @@ async function createProduct (data) {
   return res.json()
 }
 
+async function editProduct (id, data) {
+  const res = await window.fetch(host + `pizza/edit/${id}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'bearer ' + Auth.getToken()
+    },
+    body: JSON.stringify(data)
+  })
+
+  return res.json()
+}
+
 async function createReview (id, data) {
   const res = await window.fetch(host + `pizza/review/${id}`, {
     method: 'POST',
@@ -117,6 +130,7 @@ export {
   login,
   fetchProducts,
   createProduct,
+  editProduct,
   fetchStats,
   createReview,
   likeProduct,
