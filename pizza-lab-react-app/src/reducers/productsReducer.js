@@ -1,5 +1,5 @@
 import {FETCH_DATA_SUCCESS, CREATE_PIZZA_SUCCESS, CREATE_PIZZA_ERROR, EDIT_PIZZA_SUCCESS, EDIT_PIZZA_ERROR,
-  REDIRECTED, CREATE_REVIEW_SUCCESS, CREATE_REVIEW_ERROR, LIKE_PRODUCT, UNLIKE_PRODUCT} from '../actions/actionTypes'
+  REDIRECTED, CREATE_REVIEW_SUCCESS, CREATE_REVIEW_ERROR, LIKE_PRODUCT, UNLIKE_PRODUCT, DELETE_PIZZA} from '../actions/actionTypes'
 
 function productsReducer (state = [], action) {
   switch (action.type) {
@@ -15,6 +15,8 @@ function productsReducer (state = [], action) {
       return reconcile(state, [action.data])
     case UNLIKE_PRODUCT:
       return reconcile(state, [action.data])
+    case DELETE_PIZZA:
+      return state.filter(e => e._id !== action.id)
     default:
       return state
   }

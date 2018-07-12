@@ -1,4 +1,4 @@
-import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, REDIRECTED } from './actionTypes'
+import { REGISTER_SUCCESS, REGISTER_ERROR, LOGIN_SUCCESS, LOGIN_ERROR, REDIRECTED, LOGOUT_SUCCESS } from './actionTypes'
 import {beginAjax, endAjax} from './ajaxStatusActions'
 import { login, register } from '../api/remote'
 import errorHandler from '../utils/errorHandler'
@@ -32,6 +32,12 @@ function loginError (error) {
 function redirectAction () {
   return {
     type: REDIRECTED
+  }
+}
+
+function logoutSuccess () {
+  return {
+    type: LOGOUT_SUCCESS
   }
 }
 
@@ -71,6 +77,7 @@ function loginAction (email, password) {
 function logoutAction () {
   return (dispatch) => {
     deauthenticateUser()
+    dispatch(logoutSuccess())
   }
 }
 

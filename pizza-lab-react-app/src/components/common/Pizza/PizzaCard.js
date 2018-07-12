@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Auth from '../../../utils/auth'
+import {deleteProductAction} from '../../../actions/productsActions'
 import { addToCartAction } from '../../../actions/cartActions'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -13,7 +14,6 @@ class PizzaCard extends Component {
   }
 
   onOrderButtonClick (e) {
-    e.preventDefault()
     if (Auth.isUserAuthenticated()) {
       this.props.addToCart(this.props.id)
       this.props.history.push('/cart')
@@ -22,7 +22,8 @@ class PizzaCard extends Component {
     }
   }
 
-  onDeleteButtonClick () {
+  onDeleteButtonClick (e) {
+    this.props.deleteProduct(this.props.id)
   }
 
   render () {
@@ -32,7 +33,7 @@ class PizzaCard extends Component {
       footer = (
         <div className='card-footer'>
           <small className='text-muted'>{weight} gr</small>
-          <button className='btn btn-danger float-right btn-sm'><i className='fa fa-trash' /></button>
+          <button onClick={this.onDeleteButtonClick} className='btn btn-danger float-right btn-sm'><i className='fa fa-trash' /></button>
           <Link to={`/admin/edit/${id}`} className='btn btn-warning float-right btn-sm'><i className='fa fa-edit' /></Link>
         </div>
       )
@@ -61,7 +62,8 @@ class PizzaCard extends Component {
 
 function mapDispatchToProps (dispatch) {
   return {
-    addToCart: (id) => dispatch(addToCartAction(id))
+    addToCart: (id) => dispatch(addToCartAction(id)),
+    deleteProduct: (id) => dispatch(deleteProductAction(id))
   }
 }
 

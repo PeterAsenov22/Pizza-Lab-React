@@ -68,6 +68,17 @@ async function editProduct (id, data) {
   return res.json()
 }
 
+async function deleteProduct (id) {
+  const res = await window.fetch(host + `pizza/delete/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': 'bearer ' + Auth.getToken()
+    }
+  })
+
+  return res.json()
+}
+
 async function createReview (id, data) {
   const res = await window.fetch(host + `pizza/review/${id}`, {
     method: 'POST',
@@ -131,6 +142,7 @@ export {
   fetchProducts,
   createProduct,
   editProduct,
+  deleteProduct,
   fetchStats,
   createReview,
   likeProduct,

@@ -1,4 +1,4 @@
-import {REGISTER_SUCCESS, LOGIN_SUCCESS, REGISTER_ERROR, LOGIN_ERROR, REDIRECTED} from '../actions/actionTypes'
+import {REGISTER_SUCCESS, LOGIN_SUCCESS, REGISTER_ERROR, LOGIN_ERROR, REDIRECTED, LOGOUT_SUCCESS} from '../actions/actionTypes'
 
 function registerReducer (state = {success: false}, action) {
   switch (action.type) {
@@ -18,6 +18,8 @@ function loginReducer (state = {success: false}, action) {
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {success: true})
     case REDIRECTED:
+      return Object.assign({}, state, {success: false})
+    case LOGOUT_SUCCESS:
       return Object.assign({}, state, {success: false})
     default:
       return state
