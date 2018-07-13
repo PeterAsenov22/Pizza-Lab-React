@@ -2,6 +2,7 @@ import React from 'react'
 import Input from '../common/Input'
 import registerValidator from '../../utils/registerValidator'
 import toastr from 'toastr'
+import Auth from '../../utils/auth'
 import {registerValidationFunc} from '../../utils/formValidator'
 import {registerAction, loginAction, redirectAction} from '../../actions/authActions'
 import {connect} from 'react-redux'
@@ -22,6 +23,12 @@ class RegisterPage extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  componentWillMount () {
+    if (Auth.isUserAuthenticated()) {
+      this.props.history.push('/')
+    }
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.registerError.hasError) {
       toastr.error(nextProps.registerError.message)
@@ -29,6 +36,7 @@ class RegisterPage extends React.Component {
       this.props.login(this.state.email, this.state.password)
     } else if (nextProps.loginSuccess) {
       this.props.redirect()
+      toastr.success('Registration successful')
       this.props.history.push('/')
     }
   }

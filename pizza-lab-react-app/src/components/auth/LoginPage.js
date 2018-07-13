@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Input from '../common/Input'
 import loginValidator from '../../utils/loginValidator'
 import toastr from 'toastr'
+import Auth from '../../utils/auth'
 import {loginValidationFunc} from '../../utils/formValidator'
 import {loginAction, redirectAction} from '../../actions/authActions'
 import {connect} from 'react-redux'
@@ -20,11 +21,18 @@ class LoginPage extends Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  componentWillMount () {
+    if (Auth.isUserAuthenticated()) {
+      this.props.history.push('/')
+    }
+  }
+
   componentWillReceiveProps (nextProps) {
     if (nextProps.loginError.hasError) {
       toastr.error(nextProps.loginError.message)
     } else if (nextProps.loginSuccess) {
       this.props.redirect()
+      toastr.success('Login successful')
       this.props.history.push('/')
     }
   }

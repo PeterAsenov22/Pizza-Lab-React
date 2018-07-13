@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import OrderDetailsRow from './OrderDetailsRow'
 import Auth from '../../utils/auth'
+import NotFoundPage from '../common/NotFound/NotFoundPage'
 import {fetchUserOrdersAction, fetchPendingOrdersAction} from '../../actions/ordersActions'
 import { connect } from 'react-redux'
 
@@ -17,12 +18,12 @@ class OrderDetailsPage extends Component {
     let orders
     if (Auth.isUserAdmin()) {
       if (this.props.pendingOrders.length === 0) {
-        return (<h1 />)
+        return (<h3 className='text-primary'>Loading...</h3>)
       }
       orders = this.props.pendingOrders
     } else {
       if (this.props.userOrders.length === 0) {
-        return (<h1 />)
+        return (<h3 className='text-primary'>Loading...</h3>)
       }
       orders = this.props.userOrders
     }
@@ -31,7 +32,7 @@ class OrderDetailsPage extends Component {
     let order = orders.find(o => o._id === orderId)
     if (!order) {
       return (
-        <h1>Order not found :(</h1>
+        <NotFoundPage errMessage='ORDER NOT FOUND' />
       )
     }
 

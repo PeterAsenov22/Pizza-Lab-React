@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Input from '../common/Input'
 import toastr from 'toastr'
 import createProductValidator from '../../utils/createProductValidator'
+import NotFoundPage from '../common/NotFound/NotFoundPage'
 import {createProductValidationFunc} from '../../utils/formValidator'
 import {editProductAction, fetchProductsAction} from '../../actions/productsActions'
 import {redirectAction} from '../../actions/authActions'
@@ -82,7 +83,7 @@ class EditPage extends Component {
     let product = this.props.products.find(o => o._id === productId)
     if (!product) {
       return (
-        <h1>Product not found :(</h1>
+        <NotFoundPage errMessage='PRODUCT NOT FOUND' />
       )
     }
 
@@ -129,8 +130,6 @@ class EditPage extends Component {
                 value={this.state.description}
                 onChange={this.onChange}
                 valid={validObj.validDescription} />
-            </div>
-            <div className='col-md-4'>
               <Input
                 type='text'
                 name='image'

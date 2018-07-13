@@ -10,7 +10,7 @@ class CartRow extends Component {
   }
 
   onChange (e) {
-    this.props.syncCart(this.props.product._id, parseInt(e.target.value))
+    this.props.syncCart(this.props.product._id, parseInt(e.target.value, 10))
   }
 
   onRefreshButtonClick () {

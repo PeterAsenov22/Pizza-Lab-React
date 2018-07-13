@@ -57,6 +57,7 @@ class OrdersPage extends Component {
                     {orders}
                   </tbody>
                 </table>
+                {orders.length === 0 && <h3 className='text-warning'>You have not made any orders!</h3>}
               </div>
             </div>
           </div>

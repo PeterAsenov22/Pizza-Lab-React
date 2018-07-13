@@ -57,9 +57,9 @@ class CartPage extends Component {
           <tfoot>
             <tr>
               <td><Link to='/menu' className='btn btn-warning'><i className='fa fa-angle-left' /> Continue Shopping</Link></td>
-              <td colspan='2' className='hidden-xs' />
+              <td colSpan='2' className='hidden-xs' />
               <td className='hidden-xs text-center'><strong>Total ${total.toFixed(2)}</strong></td>
-              <td><button onClick={this.onCheckoutButtonClick.bind(this)} className='btn btn-success btn-block'>Checkout <i className='fa fa-angle-right' /></button></td>
+              {productsInCart.length > 0 && <td><button onClick={this.onCheckoutButtonClick.bind(this)} className='btn btn-success btn-block'>Checkout <i className='fa fa-angle-right' /></button></td>}
             </tr>
           </tfoot>
         </table>

@@ -29,6 +29,7 @@ class CreatePage extends Component {
       toastr.error(nextProps.createProductError.message)
     } else if (nextProps.createProductSuccess) {
       this.props.redirect()
+      toastr.success('Pizza created successfully')
       this.props.history.push('/menu')
     }
   }
@@ -91,8 +92,6 @@ class CreatePage extends Component {
                 value={this.state.description}
                 onChange={this.onChange}
                 valid={validObj.validDescription} />
-            </div>
-            <div className='col-md-4'>
               <Input
                 type='text'
                 name='image'

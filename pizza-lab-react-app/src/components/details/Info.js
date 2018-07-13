@@ -37,8 +37,8 @@ class Info extends Component {
         <div className='col-md-4'>
           <p><span className='light-blue-text'>Ingredients</span>: {product.ingredients.join(', ')}</p>
           <p><span className='light-blue-text'>Description</span>: {product.description}</p>
-          <p><span className='light-blue-text'>Weight</span>: {product.weight}</p>
-          <p><span className='light-blue-text'>Price</span>: {product.price}</p>
+          <p><span className='light-blue-text'>Weight</span>: {product.weight}gr</p>
+          <p><span className='light-blue-text'>Price</span>: ${product.price.toFixed(2)}</p>
           <button className='btn btn-primary btn-sm' onClick={this.onLikeButtonClick.bind(this)}>{buttonText}</button>
           <button className='btn btn-warning btn-sm' onClick={this.onOrderButtonClick.bind(this)}>Order</button>
         </div>

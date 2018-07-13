@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Info from './Info'
 import ReviewsContainer from './ReviewsContainer'
 import Auth from '../../utils/auth'
+import NotFoundPage from '../common/NotFound/NotFoundPage'
 import {likeProductAction, unlikeProductAction} from '../../actions/productsActions'
 import {addToCartAction} from '../../actions/cartActions'
 import {connect} from 'react-redux'
@@ -13,7 +14,7 @@ class DetailsPage extends Component {
 
     if (!product) {
       return (
-        <h1>Product not found :(</h1>
+        <NotFoundPage errMessage='PRODUCT NOT FOUND' />
       )
     }
 

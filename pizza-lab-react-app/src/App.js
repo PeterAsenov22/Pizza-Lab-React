@@ -12,11 +12,12 @@ import DetailsPage from './components/details/DetailsPage'
 import CartPage from './components/cart/CartPage'
 import OrdersPage from './components/orders/OrdersPage'
 import OrderDetailsPage from './components/orders/OrderDetailsPage'
-import NotFoundPage from './components/common/NotFoundPage'
+import NotFoundPage from './components/common/NotFound/NotFoundPage'
 import Auth from './utils/auth'
 import PrivateRoute from './components/common/Routes/PrivateRoute'
 import AdminRoute from './components/common/Routes/AdminRoute'
 import fetchStatsAction from './actions/statsActions'
+import toastr from 'toastr'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { logoutAction } from './actions/authActions'
@@ -50,12 +51,14 @@ class App extends Component {
   logout () {
     this.setState({ loggedIn: false })
     this.props.logout()
+    toastr.success('Logout successful')
     this.props.history.push('/login')
   }
 
   render () {
     const isAdmin = Auth.isUserAdmin()
     const {productsCount, usersCount} = this.props.stats
+
     return (
       <div className='App'>
         <Navbar
