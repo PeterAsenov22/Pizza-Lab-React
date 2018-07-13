@@ -28,10 +28,10 @@ class OrdersPage extends Component {
     let orders
     const isAdmin = Auth.isUserAdmin()
     if (isAdmin) {
-      orders = this.props.pendingOrders.map((o, i) => (<OrdersRow key={o._id} order={o} index={i} onApprove={this.onApproveButtonClick} />))
+      orders = this.props.pendingOrders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((o, i) => (<OrdersRow key={o._id} order={o} index={i} onApprove={this.onApproveButtonClick} />))
       heading = 'Pending Orders'
     } else {
-      orders = this.props.userOrders.map((o, i) => (<OrdersRow key={o._id} order={o} index={i} />))
+      orders = this.props.userOrders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((o, i) => (<OrdersRow key={o._id} order={o} index={i} />))
       heading = 'My Orders'
     }
 

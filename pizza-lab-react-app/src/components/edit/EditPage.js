@@ -14,7 +14,6 @@ class EditPage extends Component {
     this.state = {
       name: '',
       ingredients: '',
-      doughTypes: '',
       description: '',
       weight: '',
       price: '',
@@ -32,7 +31,6 @@ class EditPage extends Component {
       this.setState({
         name: product.name,
         ingredients: product.ingredients.join(','),
-        doughTypes: product.doughTypes.join(','),
         description: product.description,
         weight: product.weight,
         price: product.price,
@@ -56,7 +54,6 @@ class EditPage extends Component {
         this.setState({
           name: product.name,
           ingredients: product.ingredients.join(','),
-          doughTypes: product.doughTypes.join(','),
           description: product.description,
           weight: product.weight,
           price: product.price,
@@ -72,11 +69,11 @@ class EditPage extends Component {
 
   onSubmit (e) {
     e.preventDefault()
-    if (!createProductValidator(this.state.name, this.state.ingredients, this.state.doughTypes,
+    if (!createProductValidator(this.state.name, this.state.ingredients,
       this.state.description, this.state.image, this.state.weight, this.state.price)) {
       return
     }
-    this.props.editProduct(this.props.match.params.id, this.state.name, this.state.ingredients, this.state.doughTypes,
+    this.props.editProduct(this.props.match.params.id, this.state.name, this.state.ingredients,
       this.state.description, this.state.image, this.state.weight, this.state.price)
   }
 
@@ -92,7 +89,6 @@ class EditPage extends Component {
     let validObj = createProductValidationFunc(
       this.state.name,
       this.state.ingredients,
-      this.state.doughTypes,
       this.state.description,
       this.state.image,
       this.state.weight,
@@ -125,14 +121,6 @@ class EditPage extends Component {
                 value={this.state.ingredients}
                 onChange={this.onChange}
                 valid={validObj.validIngredients} />
-              <Input
-                type='text'
-                name='doughTypes'
-                label='Dough Types'
-                placeholder='Enter dough types for the pizza. Put a comma between them'
-                value={this.state.doughTypes}
-                onChange={this.onChange}
-                valid={validObj.validDoughTypes} />
               <Input
                 type='text'
                 name='description'
@@ -186,8 +174,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    editProduct: (id, name, ingredients, doughTypes, description, image, weight, price) => {
-      dispatch(editProductAction(id, {name, ingredients, doughTypes, description, image, weight, price}))
+    editProduct: (id, name, ingredients, description, image, weight, price) => {
+      dispatch(editProductAction(id, {name, ingredients, description, image, weight, price}))
     },
     redirect: () => dispatch(redirectAction()),
     fetchProducts: () => dispatch(fetchProductsAction())

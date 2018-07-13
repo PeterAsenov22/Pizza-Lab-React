@@ -1,16 +1,12 @@
 import toastr from 'toastr'
 
-function createProductValidator (name, ingredients, doughTypes, description, image, weight, price) {
+function createProductValidator (name, ingredients, description, image, weight, price) {
   if (name.length < 3 || name === '') {
     toastr.error('Name must be at least 3 characters long')
     return false
   }
   if (ingredients.length < 3 || ingredients.indexOf(' ') > -1 || ingredients === '') {
     toastr.error('Ingredients must be at least 3 characters long and separated by comma')
-    return false
-  }
-  if (doughTypes.length < 3 || doughTypes.indexOf(' ') > -1 || doughTypes === '') {
-    toastr.error('Dough types must be at least 3 characters long and separated by comma')
     return false
   }
   if (description.length < 10 || description.length > 120 || description === '') {

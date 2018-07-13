@@ -1,4 +1,4 @@
-import {ADD_TO_CART, SYNC_CART, REMOVE_FROM_CART} from '../actions/actionTypes'
+import {ADD_TO_CART, SYNC_CART, REMOVE_FROM_CART, SUBMIT_ORDER} from '../actions/actionTypes'
 
 function cartReducer (state = [], action) {
   switch (action.type) {
@@ -26,6 +26,8 @@ function cartReducer (state = [], action) {
         }
       }
       return newState
+    case SUBMIT_ORDER:
+      return []
     default:
       return state
   }

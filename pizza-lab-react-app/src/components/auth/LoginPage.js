@@ -21,7 +21,6 @@ class LoginPage extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    debugger;
     if (nextProps.loginError.hasError) {
       toastr.error(nextProps.loginError.message)
     } else if (nextProps.loginSuccess) {

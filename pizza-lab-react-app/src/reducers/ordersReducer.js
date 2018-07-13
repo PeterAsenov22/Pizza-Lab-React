@@ -1,4 +1,4 @@
-import {SUBMIT_ORDER, FETCH_USER_ORDERS, FETCH_PENDING_ORDERS, APPROVED_ORDER} from '../actions/actionTypes'
+import {SUBMIT_ORDER, FETCH_USER_ORDERS, FETCH_PENDING_ORDERS, APPROVED_ORDER, LOGOUT_SUCCESS} from '../actions/actionTypes'
 
 function userOrdersReducer (state = [], action) {
   switch (action.type) {
@@ -6,6 +6,8 @@ function userOrdersReducer (state = [], action) {
       return reconcile(state, action.orders)
     case SUBMIT_ORDER:
       return reconcile(state, [action.order])
+    case LOGOUT_SUCCESS:
+      return []
     default:
       return state
   }
@@ -17,6 +19,8 @@ function pendingOrdersReducer (state = [], action) {
       return reconcile(state, action.orders)
     case APPROVED_ORDER:
       return state.filter(o => o._id !== action.id)
+    case LOGOUT_SUCCESS:
+      return []
     default:
       return state
   }

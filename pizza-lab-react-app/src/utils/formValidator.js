@@ -80,7 +80,7 @@ const loginValidationFunc = (email, password) => {
   }
 }
 
-const createProductValidationFunc = (name, ingredients, doughTypes, description, image, weight, price) => {
+const createProductValidationFunc = (name, ingredients, description, image, weight, price) => {
   let validName = (() => {
     if (
       name.length > 2 &&
@@ -96,17 +96,6 @@ const createProductValidationFunc = (name, ingredients, doughTypes, description,
       ingredients.length > 2 &&
       ingredients.indexOf(' ') < 0 &&
       ingredients !== ''
-    ) {
-      return true
-    }
-    return false
-  })()
-
-  let validDoughTypes = (() => {
-    if (
-      doughTypes.length > 2 &&
-      doughTypes.indexOf(' ') < 0 &&
-      doughTypes !== ''
     ) {
       return true
     }
@@ -157,7 +146,6 @@ const createProductValidationFunc = (name, ingredients, doughTypes, description,
   return {
     validName,
     validIngredients,
-    validDoughTypes,
     validDescription,
     validImage,
     validWeight,

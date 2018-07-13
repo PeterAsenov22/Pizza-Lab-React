@@ -13,7 +13,7 @@ const OrdersRow = (props) => {
   return (
     <tr>
       <th>#{props.index + 1}</th>
-      <td>{new Date(date).toLocaleDateString()}</td>
+      <td>{new Date(date).toLocaleString()}</td>
       <td>$ {totalPrice.toFixed(2)}</td>
       <td><span className='label label-info'>{status}</span>
       </td>
