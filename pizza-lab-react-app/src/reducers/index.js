@@ -1,7 +1,7 @@
 import ajaxStatusReducer from './ajaxStatusReducer'
 import statsReducer from './statsReducer'
 import cartReducer from './cartReducer'
-import ordersReducer from './ordersReducer'
+import {userOrdersReducer, pendingOrdersReducer} from './ordersReducer'
 import {productsReducer, createProductReducer, createProductErrorReducer, editProductReducer, editProductErrorReducer, createReviewErrorReducer} from './productsReducer'
 import {registerReducer, loginReducer, registerErrorReducer, loginErrorReducer} from './authReducer'
 
@@ -19,5 +19,6 @@ export default {
   stats: statsReducer,
   createReviewError: createReviewErrorReducer,
   cart: cartReducer,
-  orders: ordersReducer
+  userOrders: userOrdersReducer,
+  pendingOrders: pendingOrdersReducer
 }

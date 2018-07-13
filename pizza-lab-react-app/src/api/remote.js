@@ -136,6 +136,26 @@ async function fetchUserOrders () {
   return res.json()
 }
 
+async function fetchPendingOrders () {
+  const res = await window.fetch(host + 'orders/pending', {
+    headers: {
+      'Authorization': 'bearer ' + Auth.getToken()
+    }
+  })
+  return res.json()
+}
+
+async function approveOrder (id) {
+  const res = await window.fetch(host + `orders/approve/${id}`, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'bearer ' + Auth.getToken()
+    }
+  })
+
+  return res.json()
+}
+
 export {
   register,
   login,
@@ -148,5 +168,7 @@ export {
   likeProduct,
   unlikeProduct,
   submitOrder,
-  fetchUserOrders
+  fetchUserOrders,
+  fetchPendingOrders,
+  approveOrder
 }

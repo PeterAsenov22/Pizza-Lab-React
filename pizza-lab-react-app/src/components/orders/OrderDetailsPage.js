@@ -1,20 +1,34 @@
 import React, { Component } from 'react'
 import OrderDetailsRow from './OrderDetailsRow'
-import {fetchUserOrdersAction} from '../../actions/ordersActions'
+import Auth from '../../utils/auth'
+import {fetchUserOrdersAction, fetchPendingOrdersAction} from '../../actions/ordersActions'
 import { connect } from 'react-redux'
 
 class OrderDetailsPage extends Component {
   componentWillMount () {
-    this.props.fetchUserOrders()
+    if (Auth.isUserAdmin()) {
+      this.props.fetchPendingOrders()
+    } else {
+      this.props.fetchUserOrders()
+    }
   }
 
   render () {
-    if (this.props.orders.length === 0) {
-      return (<h1 />)
+    let orders
+    if (Auth.isUserAdmin()) {
+      if (this.props.pendingOrders.length === 0) {
+        return (<h1 />)
+      }
+      orders = this.props.pendingOrders
+    } else {
+      if (this.props.userOrders.length === 0) {
+        return (<h1 />)
+      }
+      orders = this.props.userOrders
     }
 
     let orderId = this.props.match.params.id
-    let order = this.props.orders.find(o => o._id === orderId)
+    let order = orders.find(o => o._id === orderId)
     if (!order) {
       return (
         <h1>Order not found :(</h1>
@@ -67,13 +81,15 @@ class OrderDetailsPage extends Component {
 
 function mapStateToProps (state) {
   return {
-    orders: state.orders
+    userOrders: state.userOrders,
+    pendingOrders: state.pendingOrders
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchUserOrders: () => dispatch(fetchUserOrdersAction())
+    fetchUserOrders: () => dispatch(fetchUserOrdersAction()),
+    fetchPendingOrders: () => dispatch(fetchPendingOrdersAction())
   }
 }
 

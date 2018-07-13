@@ -1,18 +1,43 @@
 import React, { Component } from 'react'
 import OrdersRow from './OrdersRow'
-import {fetchUserOrdersAction} from '../../actions/ordersActions'
+import Auth from '../../utils/auth'
+import {fetchUserOrdersAction, fetchPendingOrdersAction, approveOrderAction} from '../../actions/ordersActions'
 import {connect} from 'react-redux'
 
 class OrdersPage extends Component {
+  constructor (props) {
+    super(props)
+
+    this.onApproveButtonClick = this.onApproveButtonClick.bind(this)
+  }
+
   componentWillMount () {
-    this.props.fetchUserOrders()
+    if (Auth.isUserAdmin()) {
+      this.props.fetchPendingOrders()
+    } else {
+      this.props.fetchUserOrders()
+    }
+  }
+
+  onApproveButtonClick (id) {
+    this.props.approveOrder(id)
   }
 
   render () {
-    let orders = this.props.orders.map((o, i) => (<OrdersRow key={o._id} order={o} index={i} />))
+    let heading
+    let orders
+    const isAdmin = Auth.isUserAdmin()
+    if (isAdmin) {
+      orders = this.props.pendingOrders.map((o, i) => (<OrdersRow key={o._id} order={o} index={i} onApprove={this.onApproveButtonClick} />))
+      heading = 'Pending Orders'
+    } else {
+      orders = this.props.userOrders.map((o, i) => (<OrdersRow key={o._id} order={o} index={i} />))
+      heading = 'My Orders'
+    }
+
     return (
       <div className='container' style={{'paddingTop': 25}}>
-        <h1 className='text-center'>My Orders</h1>
+        <h1 className='text-center'>{heading}</h1>
         <div className='row' style={{'paddingTop': 25}}>
           <div className='col-md-12' id='customer-orders'>
             <div className='box'>
@@ -24,7 +49,8 @@ class OrdersPage extends Component {
                       <th>Date</th>
                       <th>Total</th>
                       <th>Status</th>
-                      <th>Action</th>
+                      <th>View</th>
+                      {isAdmin && <th>Action</th>}
                     </tr>
                   </thead>
                   <tbody>
@@ -42,13 +68,16 @@ class OrdersPage extends Component {
 
 function mapStateToProps (state) {
   return {
-    orders: state.orders
+    userOrders: state.userOrders,
+    pendingOrders: state.pendingOrders
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
-    fetchUserOrders: () => dispatch(fetchUserOrdersAction())
+    fetchUserOrders: () => dispatch(fetchUserOrdersAction()),
+    fetchPendingOrders: () => dispatch(fetchPendingOrdersAction()),
+    approveOrder: (id) => dispatch(approveOrderAction(id))
   }
 }
 

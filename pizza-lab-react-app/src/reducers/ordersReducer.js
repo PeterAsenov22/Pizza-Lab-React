@@ -1,11 +1,22 @@
-import {SUBMIT_ORDER, FETCH_USER_ORDERS} from '../actions/actionTypes'
+import {SUBMIT_ORDER, FETCH_USER_ORDERS, FETCH_PENDING_ORDERS, APPROVED_ORDER} from '../actions/actionTypes'
 
-function ordersReducer (state = [], action) {
+function userOrdersReducer (state = [], action) {
   switch (action.type) {
     case FETCH_USER_ORDERS:
       return reconcile(state, action.orders)
     case SUBMIT_ORDER:
       return reconcile(state, [action.order])
+    default:
+      return state
+  }
+}
+
+function pendingOrdersReducer (state = [], action) {
+  switch (action.type) {
+    case FETCH_PENDING_ORDERS:
+      return reconcile(state, action.orders)
+    case APPROVED_ORDER:
+      return state.filter(o => o._id !== action.id)
     default:
       return state
   }
@@ -34,4 +45,7 @@ function reconcile (oldData, newData) {
   return result
 }
 
-export default ordersReducer
+export {
+  userOrdersReducer,
+  pendingOrdersReducer
+}
