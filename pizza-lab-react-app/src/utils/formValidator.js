@@ -94,7 +94,7 @@ const createProductValidationFunc = (name, ingredients, description, image, weig
   let validIngredients = (() => {
     if (
       ingredients.length > 2 &&
-      ingredients.indexOf(' ') < 0 &&
+      ingredients.indexOf(', ') < 0 &&
       ingredients !== ''
     ) {
       return true
@@ -105,7 +105,7 @@ const createProductValidationFunc = (name, ingredients, description, image, weig
   let validDescription = (() => {
     if (
       description.length > 10 &&
-      description.length <= 120 &&
+      description.length <= 200 &&
       description !== ''
     ) {
       return true

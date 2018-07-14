@@ -71,20 +71,20 @@ class RegisterPage extends React.Component {
             <div className='col-md-4'>
               <Input
                 type='text'
-                name='username'
-                label='Username'
-                placeholder='Enter username'
-                value={this.state.username}
-                onChange={this.onChange}
-                valid={validObj.validUsername} />
-              <Input
-                type='text'
                 name='email'
                 label='E-mail'
                 placeholder='Enter e-mail'
                 value={this.state.email}
                 onChange={this.onChange}
                 valid={validObj.validEmail} />
+              <Input
+                type='text'
+                name='username'
+                label='Username'
+                placeholder='Enter username'
+                value={this.state.username}
+                onChange={this.onChange}
+                valid={validObj.validUsername} />
               <Input
                 type='password'
                 name='password'

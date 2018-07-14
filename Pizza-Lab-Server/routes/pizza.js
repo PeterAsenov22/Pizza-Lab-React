@@ -17,12 +17,12 @@ function validatePizzaCreateForm (payload) {
     errors.name = 'Pizza name must be at least 3 symbols.'
   }
 
-  if (!payload || payload.ingredients.length < 3 || payload.ingredients.indexOf(' ') > -1 || payload.ingredients === '') {
+  if (!payload || payload.ingredients.length < 3 || payload.ingredients.indexOf(', ') > -1 || payload.ingredients === '') {
     isFormValid = false
     errors.ingredients = 'Ingredients must be at least 3 characters long and separated by comma.'
   }
 
-  if (!payload || typeof payload.description !== 'string' || payload.description.length < 10 || payload.description.length > 120) {
+  if (!payload || typeof payload.description !== 'string' || payload.description.length < 10 || payload.description.length > 200) {
     isFormValid = false
     errors.description = 'Description must be at least 10 symbols and less than 120 symbols.'
   }

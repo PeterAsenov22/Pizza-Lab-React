@@ -49,7 +49,7 @@ class PizzaCard extends Component {
 
     return (
       <div className='card col-4'>
-        <img className='card-img-top' src={image} alt={name} />
+        <img className='card-img-top card-image' src={image} alt={name} />
         <div className='card-body'>
           <h5 className='card-title'>{name}</h5>
           <p className='card-text'>{description}</p>

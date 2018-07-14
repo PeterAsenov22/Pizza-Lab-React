@@ -37,3 +37,8 @@ table#cart tfoot td .btn{display:block;}
   width: 85px;
   height: 85px;
 }
+
+.card-image{
+  width: 300px;
+  height: 200px;
+}
