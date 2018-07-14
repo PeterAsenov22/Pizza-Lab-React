@@ -34,7 +34,7 @@ class EditPage extends Component {
         ingredients: product.ingredients.join(','),
         description: product.description,
         weight: product.weight,
-        price: product.price,
+        price: product.price.toFixed(2),
         image: product.image
       })
     } else {
@@ -47,6 +47,7 @@ class EditPage extends Component {
       toastr.error(nextProps.editProductError.message)
     } else if (nextProps.editProductSuccess) {
       this.props.redirect()
+      toastr.success('Product edited successfully')
       this.props.history.push('/menu')
     } else {
       const productId = this.props.match.params.id
@@ -57,7 +58,7 @@ class EditPage extends Component {
           ingredients: product.ingredients.join(','),
           description: product.description,
           weight: product.weight,
-          price: product.price,
+          price: product.price.toFixed(2),
           image: product.image
         })
       }

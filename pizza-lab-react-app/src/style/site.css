@@ -34,14 +34,19 @@ a.nav-link.active {
 html {
     position: relative;
     min-height: 100%;
-  }
+}
   
-  body {
+body {
     margin-bottom: 220px;
-  }
+}
   
-  #footer {
+#footer {
     position: absolute;
     bottom: 0;
     width: 100%;
+}
+
+.card-image {
+    width: 300px;
+    height: 200px;
 }

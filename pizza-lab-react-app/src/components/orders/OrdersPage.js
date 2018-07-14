@@ -25,14 +25,17 @@ class OrdersPage extends Component {
 
   render () {
     let heading
+    let noOrdersMessage
     let orders
     const isAdmin = Auth.isUserAdmin()
     if (isAdmin) {
       orders = this.props.pendingOrders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((o, i) => (<OrdersRow key={o._id} order={o} index={i} onApprove={this.onApproveButtonClick} />))
       heading = 'Pending Orders'
+      noOrdersMessage = 'There are currently no pending orders!'
     } else {
       orders = this.props.userOrders.sort((a, b) => new Date(b.date) - new Date(a.date)).map((o, i) => (<OrdersRow key={o._id} order={o} index={i} />))
       heading = 'My Orders'
+      noOrdersMessage = 'You have not made any orders!'
     }
 
     return (
@@ -57,7 +60,7 @@ class OrdersPage extends Component {
                     {orders}
                   </tbody>
                 </table>
-                {orders.length === 0 && <h3 className='text-warning'>You have not made any orders!</h3>}
+                {orders.length === 0 && <h3 className='text-warning'>{noOrdersMessage}</h3>}
               </div>
             </div>
           </div>
