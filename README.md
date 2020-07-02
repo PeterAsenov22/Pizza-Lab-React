@@ -47,4 +47,7 @@
     - o View all pending orders
     - o Navigate to order details
     - o Approve order
+    
+# Project Origins
 
+Originally got from https://github.com/PeterAsenov22/Pizza-Lab-React
